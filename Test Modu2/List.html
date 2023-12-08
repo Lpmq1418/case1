@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="MoDu2.css">
+</head>
+<body>
+    <header>
+        
+        <div style="display: flex;text-align: -webkit-right;">
+            <div style="text-align: center;">
+                <img src="https://viblo.asia/logo_full.svg" alt="" style="width: 30%;">
+            </div>
+            <div>
+                <ul>
+                    <li><a href="#"> Bài Viết </a></li>
+                    <li><a href="#"> Hỏi Đáp </a></li>
+                    <li><a href="#"> Thảo Luận </a></li>
+                </ul>
+            </div>
+          
+        </div>
+        <div>
+            <input placeholder="Tìm kiếm " type="text">
+            <button>
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        <div>
+            <img src="https://samcenter.vn/images/flags/vie.png" alt=""
+            style="height: 20px;padding: 25px 10px 25px 10px;">
+        </div>
+        <div>
+            <button type="button">
+                <i class="fa fa-sign-in"></i>
+                <span>Đăng Nhập</span>
+            </button>
+        </div>
+    </header>
+    <div id="list" style="padding: 0% 10%;"></div>
+    <script>
+        $("document").ready(() => {
+            $.get(
+                "https://8c22c204b3474980b549d26caf5ab0eb.api.mockbin.io/",
+                (data, textStatus, xhr) => {
+                    console.log({ data })
+                    if (xhr.status === 200) {
+                        showData(data);
+                    }
+                }
+            );
+        
+
+            function showData(arr) {
+                const list = document.getElementById("list");
+                console.log(arr)
+                const template = `<div class="flex py-8 border-b-2">  <div >  <img class = "w-14" src="https://images.viblo.asia/avatar/d3fbbb69-55f2-4530-99de-de866b71e9d8.png"/>  </div>  <div  class="w-1/2 text-black flex flex-col"> <div class="flex text-xs"><div class="text-red-500">Viblo Announcer</div><div class="ps-3">thg 12 1, 8:00SA </div><div class="ps-8">1 phút đọc </div></div>  <div><a  href="http://127.0.0.1:5501/Detail.html">[Viblo Contribution Event 2023 - CHÍNH THỨC KẾT THÚC]</a></div></div></div>`;
+                arr.forEach((element) => {
+                    let newElement = template.replace("$src", element.product_image)
+                    .replace("$name", element.product_name)
+                            .replace("$price", element.product_price);
+                        const div = document.createElement("div");
+                        div.innerHTML = newElement;
+                        list.appendChild(div);
+                });
+            }
+        });
+    </script>
+    <footer>
+    </footer>
+</body>
+</html>
